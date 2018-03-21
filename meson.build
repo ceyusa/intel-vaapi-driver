@@ -67,7 +67,8 @@ if get_option('with_x11') != 'no'
   libva_x11_dep = dependency(
     'libva-x11',
     version : libva_version,
-    required : get_option('with_x11') == 'yes')
+    required : get_option('with_x11') == 'yes',
+    fallback : [ 'libva', 'libva_x11_dep' ])
 
   WITH_X11 = libva_x11_dep.found()
 endif
@@ -92,7 +93,8 @@ if get_option('with_wayland') != 'no'
   libva_wayland_dep = dependency(
     'libva-wayland',
     version : libva_version,
-    required : get_option('with_wayland') == 'yes')
+    required : get_option('with_wayland') == 'yes',
+    fallback : [ 'libva', 'libva_wayland_dep' ])
 
   WITH_WAYLAND = (wayland_client_dep.found()
 		  and wl_scanner.found()
